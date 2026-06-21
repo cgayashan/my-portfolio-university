@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chamuditha Gayashan — AI/ML Engineer &amp; Data Science Undergraduate</title>
+<meta name="description" content="Portfolio of Chamuditha Gayashan — AI/ML Engineer, Robotics enthusiast and Data Science undergraduate. Projects, education, achievements and contact." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg:        '#0A0F1C',
+          bgalt:     '#0E1526',
+          surface:   '#121A2C',
+          surface2:  '#172238',
+          line:      '#223153',
+          ink:       '#E8ECF6',
+          muted:     '#8C99B8',
+          accent:    '#F2A65A',
+          accent2:   '#5FE3C9',
+        },
+        fontFamily: {
+          display: ['Space Grotesk', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['JetBrains Mono', 'monospace'],
+        },
+        boxShadow: {
+          glow: '0 0 0 1px rgba(242,166,90,0.25), 0 8px 30px -10px rgba(242,166,90,0.25)',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html, body { background-color: #0A0F1C; }
+  body { font-family: 'Inter', sans-serif; }
+
+  .grid-field {
+    background-image:
+      linear-gradient(rgba(242,166,90,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242,166,90,0.06) 1px, transparent 1px);
+    background-size: 42px 42px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 90%);
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 90%);
+  }
+
+  .bracket { position: relative; }
+  .bracket::before, .bracket::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border-color: var(--bracket-color, #F2A65A);
+    opacity: 0.55;
+    transition: opacity 0.25s ease, width 0.25s ease, height 0.25s ease;
+    pointer-events: none;
+  }
+  .bracket::before { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+  .bracket::after  { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+  .bracket:hover::before, .bracket:hover::after,
+  .bracket.bracket-active::before, .bracket.bracket-active::after {
+    opacity: 1; width: 24px; height: 24px;
+  }
+  .bracket-lg::before, .bracket-lg::after { width: 28px; height: 28px; }
+  .bracket-lg:hover::before, .bracket-lg:hover::after { width: 34px; height: 34px; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: #F2A65A;
+  }
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #223153 15%, #223153 85%, transparent);
+  }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  #mobileMenu { transition: max-height 0.3s ease, opacity 0.25s ease; overflow: hidden; }
+  #chatPanel { transition: opacity 0.25s ease, transform 0.25s ease; }
+  .chat-hidden { opacity: 0; transform: translateY(12px) scale(0.98); pointer-events: none; }
+
+  #chatLog::-webkit-scrollbar { width: 6px; }
+  #chatLog::-webkit-scrollbar-thumb { background: #223153; border-radius: 4px; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid #F2A65A;
+    outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body class="bg-bg text-ink font-body antialiased">
+
+<!-- NAVIGATION -->
+<header class="fixed top-0 inset-x-0 z-50 border-b border-line/70 backdrop-blur-md bg-bg/80">
+  <nav class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="#home" class="font-display font-700 text-lg tracking-tight text-ink flex items-center gap-2">
+      <span class="font-mono text-accent text-sm">&lt;/&gt;</span>
+      <span>Chamuditha Gayashan<span class="text-accent">.</span></span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 font-mono text-[0.8rem] text-muted">
+      <li><a href="#about"      class="hover:text-accent transition-colors">about</a></li>
+      <li><a href="#education"  class="hover:text-accent transition-colors">education</a></li>
+      <li><a href="#projects"   class="hover:text-accent transition-colors">projects</a></li>
+      <li><a href="#contact"    class="hover:text-accent transition-colors">contact</a></li>
+    </ul>
+
+    <div class="hidden md:block">
+      <a href="#contact" class="bracket inline-flex items-center gap-2 px-4 py-2 border border-line rounded-md font-mono text-xs text-ink hover:border-accent hover:text-accent transition-colors">
+        say hello
+      </a>
+    </div>
+
+    <button id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle navigation menu"
+      class="md:hidden relative w-9 h-9 flex flex-col items-center justify-center gap-[5px] group">
+      <span class="menu-bar block w-6 h-[2px] bg-ink transition-transform duration-300"></span>
+      <span class="menu-bar block w-6 h-[2px] bg-ink transition-opacity duration-300"></span>
+      <span class="menu-bar block w-6 h-[2px] bg-ink transition-transform duration-300"></span>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" class="md:hidden max-h-0 opacity-0 border-t border-line bg-bg/95">
+    <ul class="flex flex-col gap-1 px-5 py-4 font-mono text-sm text-muted">
+      <li><a href="#about"     class="block py-2.5 hover:text-accent transition-colors">about</a></li>
+      <li><a href="#education" class="block py-2.5 hover:text-accent transition-colors">education</a></li>
+      <li><a href="#projects"  class="block py-2.5 hover:text-accent transition-colors">projects</a></li>
+      <li><a href="#contact"   class="block py-2.5 hover:text-accent transition-colors">contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="relative pt-32 pb-24 sm:pt-40 sm:pb-32 overflow-hidden">
+  <div class="absolute inset-0 grid-field"></div>
+
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 grid md:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
+    <div class="reveal">
+      <p class="eyebrow mb-5">Researcher in AI · Machine Learning · Robotics</p>
+      <h1 class="font-display font-700 text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] tracking-tight text-ink">
+        Engineering<span class="text-accent"> Intelligent Systems</span>
+        at the Frontier of
+        <span class="text-accent">AI & Robotics</span>.
+      </h1>
+      <p class="mt-6 text-base sm:text-lg text-muted max-w-xl leading-relaxed">
+        I'm Chamuditha Gayashan, an AI/ML engineer and researcher specializing in computer vision, deep learning architectures, and intelligent robotic systems. Currently pursuing a research-driven career dedicated to solving complex engineering problems and advancing the frontier of artificial intelligence.
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#projects" class="bracket inline-flex items-center gap-2 px-5 py-3 bg-accent text-bg font-mono text-sm font-medium rounded-md hover:bg-accent/90 transition-colors shadow-glow">
+          view my work
+        </a>
+        <a id="downloadCvBtn" href="chamudithaCV.pdf" download="chamudithaCV.pdf" class="bracket inline-flex items-center gap-2 px-5 py-3 border border-line text-ink font-mono text-sm rounded-md hover:border-accent hover:text-accent transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          download CV
+        </a>
+      </div>
+
+      <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs text-muted">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-accent2 animate-pulse"></span>STATUS: open to research &amp; freelance work</span>
+        <span>BASED IN: Colombo, Sri Lanka</span>
+      </div>
+    </div>
+
+    <div class="reveal flex justify-center md:justify-end">
+      <div class="bracket bracket-lg relative w-60 h-72 sm:w-72 sm:h-80" style="--bracket-color:#F2A65A">
+        <div class="absolute inset-0 rounded-md bg-surface border border-line overflow-hidden flex items-center justify-center">
+          <img src="profile.jpg" alt="Portrait of Chamuditha Gayashan" class="w-full h-full object-cover opacity-90" />
+        </div>
+        <div class="absolute -bottom-4 -right-4 bg-bg border border-line rounded-md px-3 py-1.5 font-mono text-[0.7rem] text-accent2">
+          BSc (Hons) Data Science
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-6xl mx-auto"></div>
+
+<!-- ABOUT -->
+<section id="about" class="py-20 sm:py-28">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 grid md:grid-cols-[0.4fr_0.6fr] gap-12">
+    <div class="reveal">
+      <p class="eyebrow mb-3">01 — ABOUT</p>
+      <h2 class="font-display font-600 text-2xl sm:text-3xl text-ink">Professional Profile</h2>
+    </div>
+    <div class="reveal space-y-5 text-muted leading-relaxed text-[0.97rem]">
+      <p class="font-body text-base sm:text-lg text-muted leading-relaxed">
+          I'm currently pursuing a <strong class="text-ink font-600">BSc (Hons) in Data Science</strong> while independently engineering advanced machine learning systems and deep learning architectures. I care about the full stack of a problem: the rigorous mathematics underneath a model, the software engineering required to ship it to production, and the product sense that makes it viable and impactful to end-users.
+        </p>
+        
+        <p class="font-body text-base sm:text-lg text-muted leading-relaxed">
+          Beyond data science experimentation, I architect high-performance backend systems using <strong class="text-ink font-600">Java/Spring Boot</strong> and <strong class="text-ink font-600">Django</strong>, develop responsive frontends in <strong class="text-ink font-600">Next.js</strong>, and actively explore robotic control systems and foundational AI research—aiming to build intelligent, scalable solutions at the frontier of technology.
+        </p>
+      <div class="flex flex-wrap gap-2 pt-2">
+        <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-line text-accent2">Python</span>
+        <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-line text-accent2">PyTorch</span>
+        <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-line text-accent2">Java / Spring Boot</span>
+        <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-line text-accent2">Django</span>
+        <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-line text-accent2">Next.js</span>
+        <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-line text-accent2">SQL / PostGIS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-6xl mx-auto"></div>
+
+<!-- EDUCATION -->
+<section id="education" class="py-20 sm:py-28 bg-bgalt/40">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal mb-14">
+      <p class="eyebrow mb-3">02 — EDUCATION</p>
+      <h2 class="font-display font-600 text-2xl sm:text-3xl text-ink">Academic background</h2>
+    </div>
+
+    <div class="relative pl-8 sm:pl-10">
+      <div class="absolute left-[7px] sm:left-[9px] top-2 bottom-2 w-px bg-line"></div>
+
+      <!-- SLTC -->
+      <div class="reveal relative">
+        <span class="absolute -left-8 sm:-left-10 top-1.5 w-4 h-4 rounded-full bg-accent ring-4 ring-bg"></span>
+        <p class="font-mono text-xs text-accent mb-1.5">2025 — PRESENT</p>
+        <h3 class="font-display font-600 text-xl text-ink">BSc (Hons) in Data Science</h3>
+        <p class="text-muted text-sm mt-1">SLTC Research University, Sri Lanka</p>
+        <p class="text-muted text-sm mt-3 leading-relaxed max-w-2xl">
+          Curriculum focuses on the rigorous mathematical and computational foundations of intelligent systems. Coursework spans <strong>Multivariable Calculus</strong>, <strong>Linear Algebra</strong>, and <strong>Probability Theory</strong> as they apply to machine learning optimization. The program emphasizes <strong>Data Structures & Algorithmic Complexity</strong>, advanced <strong>Neural Network Architectures</strong>, and <strong>Computer Vision</strong> pipelines.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Mathematics</span>
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Software Architecture
+</span>
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Database Design</span>
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Artificial Intelligence</span>
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Machine Learning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-6xl mx-auto"></div>
+
+<!-- PROJECTS -->
+<!-- PROJECTS SECTION -->
+<section id="projects" class="py-20 sm:py-28">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-14 reveal">
+      <div>
+        <p class="text-accent text-xs font-mono tracking-widest uppercase mb-3">03 — PROJECTS</p>
+        <h2 class="font-display font-600 text-3xl sm:text-4xl text-ink">Selected Projects</h2>
+      </div>
+      <p class="text-muted text-sm font-mono max-w-xs md:text-right">
+        A deployment-ready selection of deep learning pipelines and robust full-stack architectures.
+      </p>
+    </div>
+
+    <!-- Project Grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+      
+      <!-- Project 1: LankaProp -->
+      <div class="p-6 bg-surface border border-line rounded-lg flex flex-col justify-between hover:border-accent/30 transition-colors reveal">
+        <div>
+          <div class="flex justify-between items-start mb-6">
+            <span class="px-2.5 py-0.5 text-[10px] font-mono tracking-wider text-accent bg-accent/10 rounded uppercase">Ongoing</span>
+            <a href="#" class="text-muted hover:text-accent transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.48 static 0-.197-.007-.72-.011-1.413-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.061.069-.061 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </a>
+          </div>
+          <h3 class="font-display font-600 text-xl text-ink mb-3">LankaProp</h3>
+          <p class="font-body text-sm text-muted leading-relaxed mb-6">
+            A geospatial content delivery network featuring localized spatial querying. Engineered spatial indexing APIs with PostGIS to filter complex entity structures on a coordinate canvas by precise radius and proximity matrices.
+          </p>
+        </div>
+        <div>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">Next.js</span>
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">Django</span>
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">PostGIS</span>
+          </div>
+          <a href="#" class="inline-flex items-center gap-1 text-xs font-mono text-accent hover:underline">View Source ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 2: Pneumonia Detection (CNN) -->
+      <div class="p-6 bg-surface border border-line rounded-lg flex flex-col justify-between hover:border-accent/30 transition-colors reveal">
+        <div>
+          <div class="flex justify-between items-start mb-6">
+            <span class="px-2.5 py-0.5 text-[10px] font-mono tracking-wider text-emerald-400 bg-emerald-500/10 rounded uppercase">Completed</span>
+            <a href="#" class="text-muted hover:text-accent transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.48 static 0-.197-.007-.72-.011-1.413-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.061.069-.061 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </a>
+          </div>
+          <h3 class="font-display font-600 text-xl text-ink mb-3">Pneumonia Detection (CNN)</h3>
+          <p class="font-body text-sm text-muted leading-relaxed mb-6">
+            A deep convolutional neural network designed to classify inflammatory pulmonary pathologies from digital chest radiographs. Orchestrated the complete pipeline within PyTorch, from stochastic data augmentation to validation.
+          </p>
+        </div>
+        <div>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">Python</span>
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">PyTorch</span>
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">OpenCV</span>
+          </div>
+          <a href="#" class="inline-flex items-center gap-1 text-xs font-mono text-accent hover:underline">View Source ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 3: Student Record Management System -->
+      <div class="p-6 bg-surface border border-line rounded-lg flex flex-col justify-between hover:border-accent/30 transition-colors reveal">
+        <div>
+          <div class="flex justify-between items-start mb-6">
+            <span class="px-2.5 py-0.5 text-[10px] font-mono tracking-wider text-emerald-400 bg-emerald-500/10 rounded uppercase">Completed</span>
+            <a href="#" class="text-muted hover:text-accent transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.48 static 0-.197-.007-.72-.011-1.413-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.061.069-.061 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </a>
+          </div>
+          <h3 class="font-display font-600 text-xl text-ink mb-3">Academic Management System</h3>
+          <p class="font-body text-sm text-muted leading-relaxed mb-6">
+            An enterprise-patterned management architecture utilizing a normalized relational schema. Features stateful role-based access controls (RBAC) to decouple privileges between distinct user types, built securely on Spring Boot.
+          </p>
+        </div>
+        <div>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">Java</span>
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">Spring Boot</span>
+            <span class="px-2 py-0.5 text-[11px] font-mono bg-bgalt text-muted rounded">MySQL</span>
+          </div>
+          <a href="#" class="inline-flex items-center gap-1 text-xs font-mono text-accent hover:underline">View Source ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-6xl mx-auto"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="py-20 sm:py-28 bg-bgalt/40">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="reveal mb-14">
+      <p class="eyebrow mb-3">04 — ACHIEVEMENTS & CERTIFICATIONS</p>
+      <h2 class="font-display font-600 text-2xl sm:text-3xl text-ink">Certifications & Recognition</h2>
+    </div>
+
+    <div class="relative pl-8 sm:pl-10">
+      <div class="absolute left-[7px] sm:left-[9px] top-2 bottom-2 w-px bg-line"></div>
+
+      <!-- Deep Learning Specialization -->
+      <div class="reveal relative">
+        <span class="absolute -left-8 sm:-left-10 top-1.5 w-4 h-4 rounded-full bg-accent ring-4 ring-bg"></span>
+        <p class="font-mono text-xs text-accent mb-1.5">CERTIFICATION</p>
+        <h3 class="font-display font-600 text-xl text-ink">Deep Learning Specialization</h3>
+        <p class="text-muted text-sm mt-1">DeepLearning.AI (Coursera)</p>
+        <p class="text-muted text-sm mt-3 leading-relaxed max-w-2xl">
+          An advanced curriculum covering foundational and deep neural network mechanics, hyperparameter tuning, optimization algorithms, Convolutional Neural Networks (CNNs), and Sequence Models (RNNs/Transformers).
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Neural Networks</span>
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">CNNs</span>
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Sequence Models</span>
+          <span class="font-mono text-[0.68rem] px-2.5 py-1 rounded border border-line text-muted">Optimization</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-6xl mx-auto"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="py-20 sm:py-28">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 grid md:grid-cols-2 gap-12">
+
+    <div class="reveal">
+      <p class="eyebrow mb-3">05 — CONTACT</p>
+      <h2 class="font-display font-600 text-2xl sm:text-3xl text-ink mb-5">Let's talk</h2>
+      <p class="text-muted leading-relaxed mb-8 max-w-md">
+        Open to technical research collaborations, Machine Learning Engineering roles, and advanced R&D projects regarding core AI architectures, Robotics, or Data Science implementation.
+      </p>
+
+      <ul class="space-y-4 font-mono text-sm">
+        <li class="flex items-center gap-3 text-muted">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          <a href="mailto:chamudithagayashan@gmail.com" class="hover:text-accent transition-colors">chamudithagayashan@gmail.com</a>
+        </li>
+        <li class="flex items-center gap-3 text-muted">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Colombo, Sri Lanka
+        </li>
+      </ul>
+
+      <!-- Social links — GitHub and LinkedIn only -->
+      <div class="flex items-center gap-3 mt-8">
+        <a href="https://github.com/cgayashan" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"
+           class="bracket w-11 h-11 rounded-md border border-line flex items-center justify-center text-ink hover:border-accent hover:text-accent transition-colors" style="--bracket-color:#F2A65A">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.03 3.26 9.29 7.78 10.8.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.13-3.17.69-3.84-1.36-3.84-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.95.1-.74.39-1.25.71-1.54-2.53-.29-5.19-1.27-5.19-5.63 0-1.25.44-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.37-2.67 5.34-5.21 5.62.41.36.77 1.07.77 2.15 0 1.56-.01 2.81-.01 3.19 0 .31.21.66.79.55A11.52 11.52 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5Z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/cgayashan" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"
+           class="bracket w-11 h-11 rounded-md border border-line flex items-center justify-center text-ink hover:border-accent hover:text-accent transition-colors" style="--bracket-color:#F2A65A">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM3.56 20.45h3.56V9H3.56v11.45Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact form -->
+    <form class="reveal bg-surface border border-line rounded-lg p-6 sm:p-8 space-y-5" id="contactForm">
+      <div>
+        <label for="nameInput" class="font-mono text-xs text-muted block mb-2">NAME</label>
+        <input id="nameInput" type="text" required placeholder="Your name"
+          class="w-full bg-bgalt border border-line rounded-md px-4 py-3 text-sm text-ink placeholder:text-muted/60 focus:border-accent transition-colors" />
+      </div>
+      <div>
+        <label for="emailInput" class="font-mono text-xs text-muted block mb-2">EMAIL</label>
+        <input id="emailInput" type="email" required placeholder="you@example.com"
+          class="w-full bg-bgalt border border-line rounded-md px-4 py-3 text-sm text-ink placeholder:text-muted/60 focus:border-accent transition-colors" />
+      </div>
+      <div>
+        <label for="messageInput" class="font-mono text-xs text-muted block mb-2">MESSAGE</label>
+        <textarea id="messageInput" required rows="4" placeholder="What would you like to talk about?"
+          class="w-full bg-bgalt border border-line rounded-md px-4 py-3 text-sm text-ink placeholder:text-muted/60 focus:border-accent transition-colors resize-none"></textarea>
+      </div>
+      <button type="submit" class="bracket w-full bg-accent text-bg font-mono text-sm font-medium rounded-md py-3 hover:bg-accent/90 transition-colors">
+        Send Message
+      </button>
+      <p id="formStatus" class="font-mono text-xs text-accent2 hidden">Message ready — connect this form to your backend or a service like Formspree to send it for real.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-line py-8">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-muted font-mono text-xs">
+    <p>© <span id="year"></span> Chamuditha Gayashan. All Rights Reserved.</p>
+    <p></p>
+  </div>
+</footer>
+
+<!-- FLOATING CHAT WIDGET -->
+<div class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-4">
+  <div id="chatPanel" class="chat-hidden w-[19rem] sm:w-80 h-[28rem] bg-surface border border-line rounded-xl shadow-2xl flex flex-col overflow-hidden">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-line bg-bgalt">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-accent2 animate-pulse"></span>
+        <p class="font-mono text-xs text-ink">Chamuditha's Assistant</p>
+      </div>
+      <button id="closeChatBtn" aria-label="Close chat" class="text-muted hover:text-accent transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="chatLog" class="flex-1 overflow-y-auto px-4 py-4 space-y-3 text-sm"></div>
+    <div id="quickReplies" class="px-4 pb-2 flex flex-wrap gap-2"></div>
+    <form id="chatForm" class="flex items-center gap-2 p-3 border-t border-line">
+      <input id="chatInput" type="text" autocomplete="off" placeholder="Ask about my skills, projects…"
+        class="flex-1 bg-bgalt border border-line rounded-md px-3 py-2 text-sm text-ink placeholder:text-muted/60 focus:border-accent transition-colors" />
+      <button type="submit" aria-label="Send message" class="w-9 h-9 flex-shrink-0 rounded-md bg-accent text-bg flex items-center justify-center hover:bg-accent/90 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg>
+      </button>
+    </form>
+  </div>
+  <button id="chatToggleBtn" aria-label="Open chat assistant"
+    class="bracket bracket-lg w-14 h-14 rounded-full bg-accent text-bg flex items-center justify-center shadow-glow hover:scale-105 transition-transform" style="--bracket-color:#5FE3C9">
+    <svg id="chatIconOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
+    <svg id="chatIconClose" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const menuBtn    = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  let menuOpen = false;
+
+  function setMenu(open) {
+    menuOpen = open;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    if (open) {
+      mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+      mobileMenu.style.opacity = '1';
+    } else {
+      mobileMenu.style.maxHeight = '0px';
+      mobileMenu.style.opacity = '0';
+    }
+    const bars = menuBtn.querySelectorAll('.menu-bar');
+    bars[0].style.transform = open ? 'translateY(7px) rotate(45deg)' : 'none';
+    bars[1].style.opacity   = open ? '0' : '1';
+    bars[2].style.transform = open ? 'translateY(-7px) rotate(-45deg)' : 'none';
+  }
+  menuBtn.addEventListener('click', () => setMenu(!menuOpen));
+  mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => setMenu(false)));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  // Download CV is handled natively via the <a download> attribute on #downloadCvBtn
+
+  // Contact form
+  const contactForm = document.getElementById('contactForm');
+  const formStatus  = document.getElementById('formStatus');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formStatus.classList.remove('hidden');
+    contactForm.reset();
+  });
+
+  // ── Chat widget ──────────────────────────────────────────────────────
+  const chatToggleBtn = document.getElementById('chatToggleBtn');
+  const chatPanel     = document.getElementById('chatPanel');
+  const closeChatBtn  = document.getElementById('closeChatBtn');
+  const chatIconOpen  = document.getElementById('chatIconOpen');
+  const chatIconClose = document.getElementById('chatIconClose');
+  const chatLog       = document.getElementById('chatLog');
+  const chatForm      = document.getElementById('chatForm');
+  const chatInput     = document.getElementById('chatInput');
+  const quickReplies  = document.getElementById('quickReplies');
+  let chatOpened = false;
+
+  function openChat() {
+    chatPanel.classList.remove('chat-hidden');
+    chatIconOpen.classList.add('hidden');
+    chatIconClose.classList.remove('hidden');
+    chatToggleBtn.setAttribute('aria-label', 'Close chat assistant');
+    if (!chatOpened) {
+      chatOpened = true;
+      addBotMessage("Hi! I'm a small assistant trained on Chamuditha's profile. Ask me about skills, projects, education or availability — or tap a suggestion below.");
+      renderQuickReplies(['Skills', 'Projects', 'Availability', 'Contact']);
+    }
+    chatInput.focus();
+  }
+
+  function closeChat() {
+    chatPanel.classList.add('chat-hidden');
+    chatIconOpen.classList.remove('hidden');
+    chatIconClose.classList.add('hidden');
+    chatToggleBtn.setAttribute('aria-label', 'Open chat assistant');
+  }
+
+  chatToggleBtn.addEventListener('click', () => chatPanel.classList.contains('chat-hidden') ? openChat() : closeChat());
+  closeChatBtn.addEventListener('click', closeChat);
+
+  function timestamp() {
+    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function addMessage(text, sender) {
+    const wrap = document.createElement('div');
+    wrap.className = sender === 'user' ? 'flex flex-col items-end' : 'flex flex-col items-start';
+    const bubble = document.createElement('div');
+    bubble.className = sender === 'user'
+      ? 'max-w-[85%] bg-accent text-bg rounded-lg rounded-br-sm px-3 py-2 leading-relaxed'
+      : 'max-w-[85%] bg-bgalt text-ink border border-line rounded-lg rounded-bl-sm px-3 py-2 leading-relaxed';
+    bubble.textContent = text;
+    const time = document.createElement('span');
+    time.className = 'font-mono text-[0.62rem] text-muted mt-1';
+    time.textContent = timestamp();
+    wrap.appendChild(bubble);
+    wrap.appendChild(time);
+    chatLog.appendChild(wrap);
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+
+  const addBotMessage  = t => addMessage(t, 'bot');
+  const addUserMessage = t => addMessage(t, 'user');
+
+  function renderQuickReplies(labels) {
+    quickReplies.innerHTML = '';
+    labels.forEach(label => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'font-mono text-[0.68rem] px-3 py-1.5 rounded-full border border-line text-muted hover:border-accent hover:text-accent transition-colors';
+      chip.textContent = label;
+      chip.addEventListener('click', () => handleUserInput(label));
+      quickReplies.appendChild(chip);
+    });
+  }
+
+  const knowledgeBase = [
+    { keywords: ['hi','hello','hey','yo'],
+      reply: "Hey there! Ask me about Chamuditha's skills, projects, education, or availability for work." },
+    { keywords: ['skill','tech','stack','language','tools'],
+      reply: "Chamuditha works mainly in Python (PyTorch, ML/CNNs), Java with Spring Boot, Django, and Next.js, plus SQL and PostGIS for geospatial data. Strong foundation in data structures, statistics and applied machine learning." },
+    { keywords: ['project','projects','work','portfolio','built'],
+      reply: "A few highlights: LankaProp (a real-estate portal with geospatial search), a CNN model for detecting pneumonia from chest X-rays, and a Student Record Management System built with Spring Boot. Check the Projects section above for details and source links." },
+    { keywords: ['lankaprop','real estate','geospatial'],
+      reply: "LankaProp is a real estate discovery platform for Sri Lanka with map-based geospatial search, built with Next.js on the frontend and Django + PostGIS on the backend." },
+    { keywords: ['pneumonia','cnn','medical','x-ray','xray'],
+      reply: "The pneumonia detection project is a CNN trained on chest X-ray images to classify pneumonia vs. healthy scans — covering preprocessing, augmentation, training and evaluation in PyTorch." },
+    { keywords: ['education','study','degree','university','sltc','school'],
+      reply: "Chamuditha is pursuing a BSc (Hons) in Data Science at SLTC Research University, Sri Lanka (started 2025), with coursework in mathematics, OOP (Java), database design, business analysis and IT ethics." },
+    { keywords: ['available','availability','hire','freelance','job','internship','opportunity'],
+      reply: "Chamuditha is currently open to research collaborations, internships and freelance work in AI/ML and full-stack development. Best way to reach out is via the Contact section or email." },
+    { keywords: ['contact','email','reach','linkedin','github'],
+      reply: "You can reach Chamuditha through the contact form above, by email, or via the GitHub and LinkedIn links in the Contact section." },
+    { keywords: ['cv','resume'],
+      reply: "There's a 'download CV' button in the hero section at the top of the page — click it to grab a beautifully formatted PDF." },
+    { keywords: ['agi','research','phd','frontier','ai lab'],
+      reply: "Chamuditha's long-term goal is to work as a core AGI/ASI research engineer at a frontier AI lab, with a planned path through an MSc and PhD in Computer Science. Currently building toward that through coursework and independent ML projects." },
+    { keywords: ['thanks','thank you','thx'],
+      reply: "You're welcome! Anything else you'd like to know?" },
+  ];
+
+  function getBotReply(msg) {
+    const lower = msg.toLowerCase();
+    for (const entry of knowledgeBase) {
+      if (entry.keywords.some(kw => lower.includes(kw))) return entry.reply;
+    }
+    return "I don't have a predefined answer for that yet — try asking about Chamuditha's skills, projects, education or availability, or use the contact form for anything specific.";
+  }
+
+  function handleUserInput(text) {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    addUserMessage(trimmed);
+    quickReplies.innerHTML = '';
+    setTimeout(() => addBotMessage(getBotReply(trimmed)), 350);
+  }
+
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = chatInput.value;
+    chatInput.value = '';
+    handleUserInput(value);
+  });
+</script>
+</body>
+</html>
